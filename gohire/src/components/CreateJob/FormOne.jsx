@@ -19,6 +19,8 @@ const FormOne = ({ handleNext }) => {
 			location: location,
 			remoteType: remoteType,
 		};
+
+		handleNext(payload);
 		//
 	};
 	return (
@@ -77,7 +79,7 @@ const FormOne = ({ handleNext }) => {
 				className={'bg-custom-primary text-white w-[68px] ml-auto  mt-[96px]'}
 				buttonTextColor={'black'}
 				buttonBorder={'borer border-gray-500'}
-				handleClick={() => handleNext()}
+				handleClick={() => handleFormOne()}
 			></Button>
 		</>
 	);

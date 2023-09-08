@@ -38,4 +38,5 @@ export const constants = {
 	INTERACTION_DESIGNER: 'Interaction Designer',
 	SEO_ANALYST: 'SEO Analyst',
 	JOB: 'Job',
+	BASE_URL: 'https://64f46d5a932537f4051a5948.mockapi.io/gohire/jobs',
 };

@@ -2,15 +2,26 @@ import React, { useState, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import FormOne from '../CreateJob/FormOne';
 import FormTwo from '../CreateJob/FormTwo';
+import axios from 'axios';
+import { constants } from '../../constants';
 
 const CustomDialog = ({ isOpen, setIsOpen }) => {
 	const [isFirstSubmitted, setIsFirstSubmitted] = useState(false);
-	const handleNext = () => {
+	const [formOneData, setFormOneData] = useState(null);
+
+	const handleNext = (formOneData) => {
 		setIsFirstSubmitted(true);
+		setFormOneData(formOneData);
 	};
-	const handleSubmit = () => {
-		setIsOpen(false);
-		setIsFirstSubmitted(false);
+	const handleSubmit = async (formTwoData) => {
+		try {
+			setIsOpen(false);
+			setIsFirstSubmitted(false);
+			const finalPayload = { ...formOneData, ...formTwoData };
+			const response = await axios.post(constants.BASE_URL, finalPayload);
+		} catch (error) {
+			console.error('Error', error);
+		}
 	};
 	return (
 		<>
@@ -34,9 +45,13 @@ const CustomDialog = ({ isOpen, setIsOpen }) => {
 						<div className="relative bg-white rounded-xl shadow-lg">
 							<div className="p-8 min-w-[577px] min-h-[564px]">
 								{!isFirstSubmitted ? (
-									<FormOne handleNext={() => handleNext()} />
+									<FormOne
+										handleNext={(formOneData) => handleNext(formOneData)}
+									/>
 								) : (
-									<FormTwo handleSubmit={() => handleSubmit()} />
+									<FormTwo
+										handleSubmit={(formTwoData) => handleSubmit(formTwoData)}
+									/>
 								)}
 							</div>
 						</div>

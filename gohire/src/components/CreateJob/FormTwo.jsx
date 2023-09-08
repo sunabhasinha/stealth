@@ -13,6 +13,20 @@ const FormTwo = ({ handleSubmit }) => {
 	const [totalEmp, setTotalEmp] = useState('');
 	const [applyType, setApplyType] = useState('');
 
+	const handleFormTwoData = () => {
+		const form2Data = {
+			maxExp,
+			minExp,
+			minSal,
+			maxSal,
+			totalEmp,
+			applyType,
+		};
+
+		console.log('Payload', form2Data);
+		handleSubmit(form2Data);
+	};
+
 	return (
 		<>
 			<div className="flex justify-between">
@@ -61,7 +75,9 @@ const FormTwo = ({ handleSubmit }) => {
 				placeholder={constants.EX_100}
 				onChange={(e) => setTotalEmp(e.target.value)}
 			/>
+
 			<CustomInput
+				type="radio"
 				label={constants.APPLY_TYPE}
 				value={applyType}
 				onChange={(e) => setApplyType(e.target.value)}
@@ -73,7 +89,7 @@ const FormTwo = ({ handleSubmit }) => {
 				className={'bg-custom-primary text-white w-[68px] ml-auto  mt-[96px]'}
 				buttonTextColor={'black'}
 				buttonBorder={'borer border-gray-500'}
-				handleClick={() => handleSubmit()}
+				handleClick={() => handleFormTwoData()}
 			></Button>
 		</>
 	);
