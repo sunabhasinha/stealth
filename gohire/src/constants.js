@@ -1,5 +1,6 @@
 export const constants = {
 	CREATE_A_JOB: 'Create a job',
+	EDIT_THE_JOB: 'Edit the job',
 	STEP: 'Step',
 	JOB_TITLE: 'Job title',
 	COMPANY_NAME: 'Company name',
@@ -16,7 +17,7 @@ export const constants = {
 	MAXIMUM: 'Maximum',
 	MINIMUM: 'Minimum',
 	EX_100: 'ex. 100',
-	QUICK_APPLY: 'Quick apply',
+	QUICK_APPLY: 'Apply now',
 	EXTERNAL_APPLY: 'External apply',
 	GREAT_VIBES: 'Great Vibes',
 	INFORMATION_TECHNOLOGY: 'ex. Information Technology',
@@ -38,5 +39,9 @@ export const constants = {
 	INTERACTION_DESIGNER: 'Interaction Designer',
 	SEO_ANALYST: 'SEO Analyst',
 	JOB: 'Job',
-	BASE_URL: 'https://64f46d5a932537f4051a5948.mockapi.io/gohire/jobs',
+	BASE_URL: 'https://64f46d5a932537f4051a5948.mockapi.io/gohire/jobs/',
+	EDIT: 'edit',
+	DELETE: 'delete',
+	NO_JOBS: 'No jobs created. Please create one.',
+	CANCEL: 'Cancel',
 };

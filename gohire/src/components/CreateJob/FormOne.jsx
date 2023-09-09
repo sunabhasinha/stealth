@@ -1,36 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { constants } from '../../constants';
-import { Combobox } from '@headlessui/react';
 import CustomInput from '../Custom/CustomInput';
 import Button from '../Custom/Button';
 
-const FormOne = ({ handleNext }) => {
+const FormOne = ({ handleNext, job, handleClose }) => {
 	const [jobTitle, setJobTitle] = useState('');
 	const [companyName, setCompanyName] = useState('');
 	const [industry, setIndustry] = useState('');
 	const [location, setLocation] = useState('');
 	const [remoteType, setRemoteType] = useState('');
+	const titleRef = useRef(null);
+	const companyNameRef = useRef(null);
+	const industryRef = useRef(null);
 
 	const handleFormOne = () => {
 		const payload = {
-			companyName: companyName,
-			jobTitle: jobTitle,
-			industry: industry,
-			location: location,
-			remoteType: remoteType,
+			companyName,
+			jobTitle,
+			industry,
+			location,
+			remoteType,
 		};
+		if (!jobTitle || !companyName || !industry) {
+			!jobTitle && titleRef?.current?.click();
+			!companyName && companyNameRef?.current?.click();
+			!industry && industryRef?.current?.click();
+
+			return;
+		}
 
 		handleNext(payload);
 		//
 	};
+
+	const applyFormOneData = () => {
+		if (!job) return;
+		const { jobTitle, companyName, industry, location, remoteType } = job;
+		setJobTitle(jobTitle);
+		setCompanyName(companyName);
+		setIndustry(industry);
+		setLocation(location);
+		setRemoteType(remoteType);
+	};
+
+	useEffect(() => {
+		applyFormOneData();
+	}, [job]);
 	return (
 		<>
 			<div className="flex justify-between">
-				<div className="text-xl">{constants.CREATE_A_JOB}</div>
+				<div className="text-xl">
+					{job?.id ? constants.EDIT_THE_JOB : constants.CREATE_A_JOB}
+				</div>
 				<div>{constants.STEP} 1</div>
 			</div>
 
 			<CustomInput
+				ref={titleRef}
 				label={constants.JOB_TITLE}
 				value={jobTitle}
 				placeholder={constants.UX_UI_DESIGNER}
@@ -40,6 +66,7 @@ const FormOne = ({ handleNext }) => {
 			/>
 
 			<CustomInput
+				ref={companyNameRef}
 				label={constants.COMPANY_NAME}
 				value={companyName}
 				required={true}
@@ -49,6 +76,7 @@ const FormOne = ({ handleNext }) => {
 			/>
 
 			<CustomInput
+				ref={industryRef}
 				label={constants.INDUSTRY}
 				value={industry}
 				required={true}
@@ -73,14 +101,24 @@ const FormOne = ({ handleNext }) => {
 				/>
 			</div>
 
-			<Button
-				buttonText={constants.NEXT}
-				buttonBg={'red'}
-				className={'bg-custom-primary text-white w-[68px] ml-auto  mt-[96px]'}
-				buttonTextColor={'black'}
-				buttonBorder={'borer border-gray-500'}
-				handleClick={() => handleFormOne()}
-			></Button>
+			<div className="mt-[96px] ml-auto flex justify-end">
+				<Button
+					buttonText={constants.CANCEL}
+					className={
+						'w-[100px] text-center border border-red-500 text-red-500 cursor-pointer mr-2'
+					}
+					handleClick={() => handleClose()}
+				></Button>
+
+				<Button
+					buttonText={constants.NEXT}
+					buttonBg={'red'}
+					className={'bg-custom-primary text-white w-[68px]  cursor-pointer  '}
+					buttonTextColor={'black'}
+					buttonBorder={'borer border-gray-500'}
+					handleClick={() => handleFormOne()}
+				></Button>
+			</div>
 		</>
 	);
 };
