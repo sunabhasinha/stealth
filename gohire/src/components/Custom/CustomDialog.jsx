@@ -2,10 +2,8 @@ import React, { useState, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import FormOne from '../CreateJob/FormOne';
 import FormTwo from '../CreateJob/FormTwo';
-import axios from 'axios';
-import { constants } from '../../constants';
 
-const CustomDialog = ({ isOpen, setIsOpen }) => {
+const CustomDialog = ({ isOpen, setIsOpen, handleSubmitForm, jobInfo }) => {
 	const [isFirstSubmitted, setIsFirstSubmitted] = useState(false);
 	const [formOneData, setFormOneData] = useState(null);
 
@@ -17,19 +15,29 @@ const CustomDialog = ({ isOpen, setIsOpen }) => {
 		try {
 			setIsOpen(false);
 			setIsFirstSubmitted(false);
-			const finalPayload = { ...formOneData, ...formTwoData };
-			const response = await axios.post(constants.BASE_URL, finalPayload);
+			const finalPayload = {
+				...formOneData,
+				...formTwoData,
+				id: jobInfo?.id ?? null,
+			};
+			handleSubmitForm(finalPayload);
 		} catch (error) {
 			console.error('Error', error);
 		}
 	};
+
+	const handleClose = () => {
+		setIsOpen(false);
+		setIsFirstSubmitted(false);
+	};
+
 	return (
 		<>
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog
 					as="div"
 					className="fixed inset-0 flex items-center justify-center z-50 overflow-x-hidden overflow-y-auto outline-none"
-					onClose={() => setIsOpen(false)}
+					onClose={() => handleClose()}
 				>
 					<div className="fixed inset-0 bg-black opacity-50" />
 
@@ -46,10 +54,14 @@ const CustomDialog = ({ isOpen, setIsOpen }) => {
 							<div className="p-8 min-w-[577px] min-h-[564px]">
 								{!isFirstSubmitted ? (
 									<FormOne
+										job={jobInfo}
+										handleClose={() => handleClose()}
 										handleNext={(formOneData) => handleNext(formOneData)}
 									/>
 								) : (
 									<FormTwo
+										job={jobInfo}
+										handleClose={() => handleClose()}
 										handleSubmit={(formTwoData) => handleSubmit(formTwoData)}
 									/>
 								)}

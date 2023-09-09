@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { constants } from '../../constants';
 
 const CustomInput = ({
 	value,
@@ -16,27 +17,42 @@ const CustomInput = ({
 		<>
 			{type === 'radio' ? (
 				<>
-					<div className="my-4">
-						<label className="inline-flex items-center">
+					{label ? <label>{label}</label> : <div className="h-6"></div>}
+					<div className="flex items-center mt-1">
+						<div className="flex items-center mr-4">
 							<input
+								id="default-radio-1"
 								type="radio"
-								className="form-radio text-blue-500 h-5 w-5"
-								name={id} // Use the 'id' prop as the name for uniqueness
-								value="option1"
+								value={constants.APPLY_NOW}
+								name="default-radio"
+								onChange={(e) => onChange(e)}
+								checked={value === constants.APPLY_NOW}
+								className="w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 dark:focus:ring-blue-600  dark:bg-gray-700 dark:border-gray-600"
 							/>
-							<span className="ml-2">Option 1</span>
-						</label>
-					</div>
-					<div className="my-4">
-						<label className="inline-flex items-center">
+							<label
+								htmlFor="default-radio-1"
+								className="ml-2 text-sm font-medium cursor-pointer"
+							>
+								Apply Now
+							</label>
+						</div>
+						<div className="flex items-center">
 							<input
+								id="default-radio-2"
 								type="radio"
-								className="form-radio text-blue-500 h-5 w-5"
-								name={id} // Use the 'id' prop as the name for uniqueness
-								value="option2"
+								value={constants.EXTERNAL_APPLY}
+								name="default-radio"
+								onChange={(e) => onChange(e)}
+								checked={value === constants.EXTERNAL_APPLY}
+								className="w-4 h-4 text-blue-600 cursor-pointer bg-gray-100 border-gray-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600"
 							/>
-							<span className="ml-2">Option 2</span>
-						</label>
+							<label
+								htmlFor="default-radio-2"
+								className="ml-2 text-sm font-medium cursor-pointer"
+							>
+								External apply
+							</label>
+						</div>
 					</div>
 				</>
 			) : (

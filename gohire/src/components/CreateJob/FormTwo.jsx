@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { constants } from '../../constants';
 import CustomInput from '../Custom/CustomInput';
 import Button from '../Custom/Button';
 
-const FormTwo = ({ handleSubmit }) => {
+const FormTwo = ({ handleSubmit, job, handleClose }) => {
 	const [maxExp, setMaxExp] = useState('');
 	const [minExp, setMinExp] = useState('');
 
@@ -22,15 +22,30 @@ const FormTwo = ({ handleSubmit }) => {
 			totalEmp,
 			applyType,
 		};
-
-		console.log('Payload', form2Data);
 		handleSubmit(form2Data);
 	};
+
+	const applyFormTwoData = () => {
+		if (!job) return;
+		const { maxExp, minExp, minSal, maxSal, totalEmp, applyType } = job;
+		setMaxExp(maxExp);
+		setMinExp(minExp);
+		setMinSal(minSal);
+		setMaxSal(maxSal);
+		setTotalEmp(totalEmp);
+		setApplyType(applyType);
+	};
+
+	useEffect(() => {
+		applyFormTwoData();
+	}, [job]);
 
 	return (
 		<>
 			<div className="flex justify-between">
-				<div className="text-xl">{constants.CREATE_A_JOB}</div>
+				<div className="text-xl">
+					{job?.id ? constants.EDIT_THE_JOB : constants.CREATE_A_JOB}
+				</div>
 				<div>{constants.STEP} 2</div>
 			</div>
 
@@ -83,14 +98,24 @@ const FormTwo = ({ handleSubmit }) => {
 				onChange={(e) => setApplyType(e.target.value)}
 			/>
 
-			<Button
-				buttonText={constants.SAVE}
-				buttonBg={'red'}
-				className={'bg-custom-primary text-white w-[68px] ml-auto  mt-[96px]'}
-				buttonTextColor={'black'}
-				buttonBorder={'borer border-gray-500'}
-				handleClick={() => handleFormTwoData()}
-			></Button>
+			<div className="mt-[96px] ml-auto flex justify-end">
+				<Button
+					buttonText={constants.CANCEL}
+					className={
+						'w-[100px] text-center border border-red-500 text-red-500 cursor-pointer mr-2'
+					}
+					handleClick={() => handleClose()}
+				></Button>
+
+				<Button
+					buttonText={constants.SAVE}
+					buttonBg={'red'}
+					className={'bg-custom-primary text-white w-[68px] cursor-pointer'}
+					buttonTextColor={'black'}
+					buttonBorder={'borer border-gray-500'}
+					handleClick={() => handleFormTwoData()}
+				></Button>
+			</div>
 		</>
 	);
 };
