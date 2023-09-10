@@ -44,4 +44,5 @@ export const constants = {
 	DELETE: 'delete',
 	NO_JOBS: 'No jobs created. Please create one.',
 	CANCEL: 'Cancel',
+	NUMBER: 'number',
 };

@@ -10,6 +10,8 @@ const CustomInput = ({
 	required,
 	placeholder,
 	type = 'input',
+	inputType = 'text',
+	inputMode = 'text',
 }) => {
 	const [isTouched, setIsTouched] = useState(false);
 
@@ -63,13 +65,14 @@ const CustomInput = ({
 						<div className="h-6"></div>
 					)}
 					<input
-						type="text"
+						type={inputType}
 						id={id}
+						inputmode={inputMode}
 						value={value}
 						onChange={onChange}
 						placeholder={placeholder}
 						onBlur={() => setIsTouched(true)}
-						className="mt-1 p-2 border rounded-md w-full"
+						className="mt-1 p-2 border rounded-md w-full appearance-none"
 					/>
 					{required && isTouched && !value && (
 						<p className="text-red-500 text-sm mt-1">{label} is required</p>
