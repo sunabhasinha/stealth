@@ -27,7 +27,7 @@ const JobCard = ({
 		<div className="bg-white rounded-lg flex px-6 py-4">
 			<div className="w-[10%]">
 				<img
-					src="src/assets/logo.png"
+					src={constants.LOGO_URL}
 					alt="company logo"
 					className="w-12 h-12"
 				/>
