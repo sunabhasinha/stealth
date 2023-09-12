@@ -73,7 +73,7 @@ const FormTwo = ({ handleSubmit, job, handleClose }) => {
 				<CustomInput
 					label={constants.SALARY}
 					value={minSal}
-					inputType={constants.NUMBER}
+					inputType={constants.STRING}
 					placeholder={constants.MINIMUM}
 					className="w-[245px]"
 					onChange={(e) => setMinSal(e.target.value)}
@@ -82,7 +82,7 @@ const FormTwo = ({ handleSubmit, job, handleClose }) => {
 					label={''}
 					className="w-[245px]"
 					value={maxSal}
-					inputType={constants.NUMBER}
+					inputType={constants.STRING}
 					placeholder={constants.MAXIMUM}
 					onChange={(e) => setMaxSal(e.target.value)}
 				/>
@@ -90,7 +90,7 @@ const FormTwo = ({ handleSubmit, job, handleClose }) => {
 			<CustomInput
 				label={constants.TOTAL_EMPLOYEE}
 				value={totalEmp}
-				inputType={constants.NUMBER}
+				inputType={constants.STRING}
 				className={'mb-6'}
 				placeholder={constants.EX_100}
 				onChange={(e) => setTotalEmp(e.target.value)}
