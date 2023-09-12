@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../Custom/Button';
 import { constants } from '../../constants';
+import JobCardIcon from "../../../public/assets/logo.png";
 
 const JobCard = ({
 	job: {
@@ -27,7 +28,7 @@ const JobCard = ({
 		<div className="bg-white rounded-lg flex px-6 py-4">
 			<div className="w-[10%]">
 				<img
-					src={constants.LOGO_URL}
+					src={JobCardIcon}
 					alt="company logo"
 					className="w-12 h-12"
 				/>
